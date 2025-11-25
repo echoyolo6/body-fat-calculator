@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/Users/hhyoyo/.gradle/daemon/8.5/com.example.bodyfatcalculator.app-merged_res-31:/layout_activity_main.xml.flat",
+        "source": "/Users/hhyoyo/.gradle/daemon/8.5/com.example.bodyfatcalculator.app-main-33:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/hhyoyo/.gradle/daemon/8.5/com.example.bodyfatcalculator.app-merged_res-31:/layout_activity_history.xml.flat",
+        "source": "/Users/hhyoyo/.gradle/daemon/8.5/com.example.bodyfatcalculator.app-main-33:/layout/activity_history.xml"
+    },
+    {
+        "merged": "/Users/hhyoyo/.gradle/daemon/8.5/com.example.bodyfatcalculator.app-merged_res-31:/drawable_result_background.xml.flat",
+        "source": "/Users/hhyoyo/.gradle/daemon/8.5/com.example.bodyfatcalculator.app-main-33:/drawable/result_background.xml"
+    },
+    {
+        "merged": "/Users/hhyoyo/.gradle/daemon/8.5/com.example.bodyfatcalculator.app-merged_res-31:/layout_history_item.xml.flat",
+        "source": "/Users/hhyoyo/.gradle/daemon/8.5/com.example.bodyfatcalculator.app-main-33:/layout/history_item.xml"
+    },
+    {
+        "merged": "com.example.bodyfatcalculator.app-merged_res-31:/layout_activity_main.xml.flat",
+        "source": "com.example.bodyfatcalculator.app-main-33:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/hhyoyo/.gradle/daemon/8.5/com.example.bodyfatcalculator.app-merged_res-31:/menu_history_menu.xml.flat",
+        "source": "/Users/hhyoyo/.gradle/daemon/8.5/com.example.bodyfatcalculator.app-main-33:/menu/history_menu.xml"
+    }
+]
