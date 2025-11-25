@@ -4,6 +4,10 @@
 *.ap_
 *.aab
 
+# Release APK files (exceptions for releases folder)
+!releases/*.apk
+!releases/*.aab
+
 # Files for the ART/Dalvik VM
 *.dex
 
