@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,9 +17,20 @@ import java.util.Locale;
 public class HistoryAdapter extends ArrayAdapter<BodyFatRecord> {
 
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+    
+    // 删除按钮点击回调接口
+    public interface OnDeleteClickListener {
+        void onDeleteClick(BodyFatRecord record);
+    }
+    
+    private OnDeleteClickListener deleteListener;
 
     public HistoryAdapter(@NonNull Context context, @NonNull List<BodyFatRecord> records) {
         super(context, 0, records);
+    }
+    
+    public void setOnDeleteClickListener(OnDeleteClickListener listener) {
+        this.deleteListener = listener;
     }
 
     @NonNull
@@ -35,12 +47,13 @@ public class HistoryAdapter extends ArrayAdapter<BodyFatRecord> {
             holder.tvSkinfolds = convertView.findViewById(R.id.tv_skinfolds);
             holder.tvResult = convertView.findViewById(R.id.tv_result);
             holder.tvTimestamp = convertView.findViewById(R.id.tv_timestamp);
+            holder.btnDelete = convertView.findViewById(R.id.btn_delete);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        BodyFatRecord record = getItem(position);
+        final BodyFatRecord record = getItem(position);
 
         if (record != null) {
             holder.tvId.setText("ID: " + record.getId()); // 显示记录的真实ID
@@ -55,6 +68,13 @@ public class HistoryAdapter extends ArrayAdapter<BodyFatRecord> {
             } else {
                 holder.tvTimestamp.setText("时间: N/A");
             }
+            
+            // 设置删除按钮点击事件
+            holder.btnDelete.setOnClickListener(v -> {
+                if (deleteListener != null) {
+                    deleteListener.onDeleteClick(record);
+                }
+            });
         }
 
         return convertView;
@@ -67,5 +87,6 @@ public class HistoryAdapter extends ArrayAdapter<BodyFatRecord> {
         TextView tvSkinfolds;
         TextView tvResult;
         TextView tvTimestamp;
+        Button btnDelete;
     }
 }

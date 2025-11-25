@@ -107,4 +107,67 @@ public class HistoryManager {
             }
         }
     }
+
+    /**
+     * 删除指定的记录
+     */
+    public boolean deleteRecord(Long recordId) {
+        synchronized (lock) {
+            List<BodyFatRecord> records = getHistory();
+            
+            // 查找要删除的记录
+            BodyFatRecord recordToDelete = null;
+            for (BodyFatRecord record : records) {
+                if (record.getId().equals(recordId)) {
+                    recordToDelete = record;
+                    break;
+                }
+            }
+            
+            if (recordToDelete == null) {
+                return false; // 记录不存在
+            }
+            
+            // 移除记录
+            records.remove(recordToDelete);
+            
+            // 重新排序
+            Collections.sort(records, new Comparator<BodyFatRecord>() {
+                @Override
+                public int compare(BodyFatRecord r1, BodyFatRecord r2) {
+                    return r2.getId().compareTo(r1.getId());
+                }
+            });
+            
+            // 写入文件
+            File tempFile = new File(file.getAbsolutePath() + ".tmp");
+            try (FileWriter writer = new FileWriter(tempFile)) {
+                gson.toJson(records, writer);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+            
+            if (file.exists()) {
+                file.delete();
+            }
+            if (!tempFile.renameTo(file)) {
+                System.err.println("Failed to rename temp file to " + FILE_NAME);
+                return false;
+            }
+            
+            return true;
+        }
+    }
+
+    /**
+     * 清空所有记录
+     */
+    public void clearAllRecords() {
+        synchronized (lock) {
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+    }
 }
