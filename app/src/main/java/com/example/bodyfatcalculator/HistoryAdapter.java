@@ -43,7 +43,7 @@ public class HistoryAdapter extends ArrayAdapter<BodyFatRecord> {
         BodyFatRecord record = getItem(position);
 
         if (record != null) {
-            holder.tvId.setText("ID: " + (position + 1));
+            holder.tvId.setText("ID: " + record.getId()); // 显示记录的真实ID
             holder.tvGender.setText("性别: " + record.getGender());
             holder.tvAge.setText("年龄: " + record.getAge());
             holder.tvSkinfolds.setText(String.format("皮褶厚度: %.2f, %.2f, %.2f mm",

@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             
             // Use HistoryManager to save to file
             executorService.execute(() -> {
-                BodyFatRecord record = new BodyFatRecord(gender, age, skinfold1, skinfold2, skinfold3, bodyFatPercentage, System.currentTimeMillis());
+                BodyFatRecord record = new BodyFatRecord(null, gender, age, skinfold1, skinfold2, skinfold3, bodyFatPercentage, System.currentTimeMillis());
                 historyManager.addRecord(record);
             });
             

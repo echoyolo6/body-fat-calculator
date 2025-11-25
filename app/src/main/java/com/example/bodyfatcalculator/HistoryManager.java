@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class HistoryManager {
@@ -42,6 +44,15 @@ public class HistoryManager {
             try (FileReader reader = new FileReader(file)) {
                 Type listType = new TypeToken<ArrayList<BodyFatRecord>>() {}.getType();
                 List<BodyFatRecord> records = gson.fromJson(reader, listType);
+                if (records != null && !records.isEmpty()) {
+                    // 确保记录按ID倒序排列
+                    Collections.sort(records, new Comparator<BodyFatRecord>() {
+                        @Override
+                        public int compare(BodyFatRecord r1, BodyFatRecord r2) {
+                            return r2.getId().compareTo(r1.getId()); // 倒序排列
+                        }
+                    });
+                }
                 return records != null ? records : new ArrayList<>();
             } catch (Exception e) {
                 // If reading fails, the file is likely corrupt. Delete it and start fresh.
@@ -54,7 +65,28 @@ public class HistoryManager {
     public void addRecord(BodyFatRecord record) {
         synchronized (lock) {
             List<BodyFatRecord> records = getHistory();
-            records.add(0, record);
+            
+            // 计算下一个ID (最大的ID + 1，如果没有记录则为1)
+            Long nextId = 1L;
+            if (!records.isEmpty()) {
+                Long maxId = records.stream()
+                    .map(BodyFatRecord::getId)
+                    .max(Long::compare)
+                    .orElse(0L);
+                nextId = maxId + 1;
+            }
+            
+            // 设置记录的ID
+            record.setId(nextId);
+            
+            // 按ID倒序排列 (ID大的在前面)
+            records.add(record);
+            Collections.sort(records, new Comparator<BodyFatRecord>() {
+                @Override
+                public int compare(BodyFatRecord r1, BodyFatRecord r2) {
+                    return r2.getId().compareTo(r1.getId()); // 倒序排列
+                }
+            });
 
             // --- ATOMIC WRITE OPERATION to prevent file corruption ---
             File tempFile = new File(file.getAbsolutePath() + ".tmp");
