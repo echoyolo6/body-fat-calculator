@@ -6,14 +6,33 @@
     android:padding="12dp"
     android:background="#f9f9f9">
 
-    <TextView
-        android:id="@+id/tv_id"
+    <!-- ID和删除按钮在同一行 -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ID: 1"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="4dp" />
+        android:orientation="horizontal"
+        android:layout_marginBottom="4dp">
+
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ID: 1"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除"
+            android:textSize="10sp"
+            android:background="#ff4444"
+            android:textColor="@android:color/white"
+            android:padding="2dp" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_gender"
@@ -21,7 +40,7 @@
         android:layout_height="wrap_content"
         android:text="性别: 男"
         android:textSize="14sp"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="2dp" />
 
     <TextView
         android:id="@+id/tv_age"
@@ -29,7 +48,7 @@
         android:layout_height="wrap_content"
         android:text="年龄: 25"
         android:textSize="14sp"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="2dp" />
 
     <TextView
         android:id="@+id/tv_skinfolds"
@@ -37,7 +56,7 @@
         android:layout_height="wrap_content"
         android:text="皮褶厚度: 10.5, 12.3, 8.7 mm"
         android:textSize="14sp"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="2dp" />
 
     <TextView
         android:id="@+id/tv_result"
@@ -46,7 +65,7 @@
         android:text="体脂率: 15.23%"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="2dp" />
 
     <TextView
         android:id="@+id/tv_timestamp"
@@ -55,24 +74,5 @@
         android:text="时间: 2023-01-01 12:00:00"
         android:textSize="12sp"
         android:textColor="#888888" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end"
-        android:layout_marginTop="8dp">
-
-        <Button
-            android:id="@+id/btn_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="删除"
-            android:textSize="12sp"
-            android:background="#ff4444"
-            android:textColor="@android:color/white"
-            android:padding="4dp" />
-
-    </LinearLayout>
 
 </LinearLayout>

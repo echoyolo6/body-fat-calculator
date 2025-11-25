@@ -1,5 +1,6 @@
 package com.example.bodyfatcalculator;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -83,7 +84,20 @@ public class MainActivity extends AppCompatActivity {
             
             double bodyFatPercentage = (495 / bodyDensity) - 450;
             
-            tvResult.setText(String.format("体脂率: %.2f%%", bodyFatPercentage));
+            // 创建临时记录对象来获取体脂率水平
+            BodyFatRecord tempRecord = new BodyFatRecord(null, gender, age, skinfold1, skinfold2, skinfold3, bodyFatPercentage, null);
+            String bodyFatLevel = tempRecord.getBodyFatLevel();
+            String levelColor = tempRecord.getBodyFatLevelColor();
+            
+            tvResult.setText(String.format("体脂率: %.2f%% (%s)", bodyFatPercentage, bodyFatLevel));
+            
+            // 根据体脂率水平设置颜色
+            try {
+                tvResult.setTextColor(Color.parseColor(levelColor));
+            } catch (IllegalArgumentException e) {
+                // 如果颜色解析失败，使用默认颜色
+                tvResult.setTextColor(Color.BLACK);
+            }
             
             // Use HistoryManager to save to file
             executorService.execute(() -> {

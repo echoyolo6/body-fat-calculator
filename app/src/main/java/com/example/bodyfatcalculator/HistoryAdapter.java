@@ -1,6 +1,7 @@
 package com.example.bodyfatcalculator;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +62,16 @@ public class HistoryAdapter extends ArrayAdapter<BodyFatRecord> {
             holder.tvAge.setText("年龄: " + record.getAge());
             holder.tvSkinfolds.setText(String.format("皮褶厚度: %.2f, %.2f, %.2f mm",
                     record.getSkinfold1(), record.getSkinfold2(), record.getSkinfold3()));
-            holder.tvResult.setText(String.format("体脂率: %.2f%%", record.getResult()));
+            holder.tvResult.setText(String.format("体脂率: %.2f%% (%s)", record.getResult(), record.getBodyFatLevel()));
+            
+            // 根据体脂率水平设置颜色
+            String levelColor = record.getBodyFatLevelColor();
+            try {
+                holder.tvResult.setTextColor(Color.parseColor(levelColor));
+            } catch (IllegalArgumentException e) {
+                // 如果颜色解析失败，使用默认颜色
+                holder.tvResult.setTextColor(Color.BLACK);
+            }
 
             if (record.getTimestamp() != null) {
                 holder.tvTimestamp.setText("时间: " + dateFormat.format(new Date(record.getTimestamp())));

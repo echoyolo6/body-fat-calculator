@@ -34,4 +34,53 @@ public class BodyFatRecord {
     
     // Setter for ID (needed when loading from JSON)
     public void setId(Long id) { this.id = id; }
+    
+    /**
+     * 获取体脂率水平描述
+     */
+    public String getBodyFatLevel() {
+        double bodyFat = this.result;
+        String gender = this.gender;
+        
+        if (gender.equals("男")) {
+            if (bodyFat < 6) {
+                return "运动员";
+            } else if (bodyFat < 14) {
+                return "健身";
+            } else if (bodyFat < 18) {
+                return "正常";
+            } else if (bodyFat < 25) {
+                return "偏高";
+            } else {
+                return "肥胖";
+            }
+        } else { // 女性
+            if (bodyFat < 14) {
+                return "运动员";
+            } else if (bodyFat < 21) {
+                return "健身";
+            } else if (bodyFat < 25) {
+                return "正常";
+            } else if (bodyFat < 32) {
+                return "偏高";
+            } else {
+                return "肥胖";
+            }
+        }
+    }
+    
+    /**
+     * 获取体脂率水平的颜色（用于界面显示）
+     */
+    public String getBodyFatLevelColor() {
+        String level = getBodyFatLevel();
+        switch (level) {
+            case "运动员": return "#4CAF50"; // 绿色
+            case "健身": return "#8BC34A"; // 浅绿
+            case "正常": return "#2196F3"; // 蓝色
+            case "偏高": return "#FF9800"; // 橙色
+            case "肥胖": return "#F44336"; // 红色
+            default: return "#666666"; // 默认灰色
+        }
+    }
 }
